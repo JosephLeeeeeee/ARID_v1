@@ -105,7 +105,8 @@ class Accuracy(EvalMetric):
             pred_topk = pred_topk.t()
             correct = pred_topk.eq(label.view(1, -1).expand_as(pred_topk))
 
-            self.sum_metric += float(correct.view(-1).float().sum(0, keepdim=True).numpy())
+            # self.sum_metric += float(correct.view(-1).float().sum(0, keepdim=True).numpy())
+            self.sum_metric += float(correct.reshape(-1).float().sum(0, keepdim=True).numpy())
             self.num_inst += label.shape[0]
 
 
