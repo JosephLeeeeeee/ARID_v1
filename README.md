@@ -19,7 +19,7 @@ Train with initialization from pre-trained models:
 python train_arid11.py --network <Network Name> --is-dark
 ```
 There are a number of parameters that can be further tuned. We recommend a batch size of 16 per GPU.
-We provide several networks that can be utilized, and can be found in the ```/network``` folder, change the ```--network``` parameter to toggle through the networks
+We provide several networks that can be utilized, and can be found in the ```/network``` folder, change the ```--network``` parameter to toggle through the networks. But could also just use ``` python train_ + tab``` and use the default network which is actually encoded as *r3d18* and other default modes.
 
 ## Testing
 
