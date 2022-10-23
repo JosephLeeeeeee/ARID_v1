@@ -19,7 +19,7 @@ Train with initialization from pre-trained models:
 python train_arid11.py --network <Network Name> --is-dark
 ```
 There are a number of parameters that can be further tuned. We recommend a batch size of 16 per GPU.
-We provide several networks that can be utilized, and can be found in the ```/network``` folder, change the ```--network``` parameter to toggle through the networks
+We provide several networks that can be utilized, and can be found in the ```/network``` folder, change the ```--network``` parameter to toggle through the networks. But could also just use ``` python train_ + tab``` and use the default network which is actually encoded as *r3d18* and other default modes.
 
 ## Testing
 
@@ -58,3 +58,5 @@ python evaluate_flow.py
 [cc-by]: http://creativecommons.org/licenses/by/4.0/
 [cc-by-image]: https://i.creativecommons.org/l/by/4.0/88x31.png
 [cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
+
+This code has been modified by me (Joseph) to fit my computer which is i5-9300H, 4GB 1650. Batch size reduced to 2, num_worker from 16 to 8, 30000MB reallocated to virtual memory to avoid breakdown. File reader redirected to *train* because files in *ARID_split1_train* are .avi files.Also added some files such as training .mp4 and PTH files.
