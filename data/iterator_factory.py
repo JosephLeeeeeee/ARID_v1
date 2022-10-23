@@ -52,8 +52,8 @@ def get_arid(data_root='./dataset/ARID',
 
 	val_sampler = sampler.SequentialSampling(num=clip_length, interval=val_interval, fix_cursor=True, shuffle=True)
 	# val_sampler = sampler.SegmentalSampling(num_per_seg=clip_length, segments=segments, interval=val_interval, fix_cursor=True, shuffle=True)
-	val   = VideoIter(video_prefix=os.path.join(data_root, 'raw', 'data'),
-					  txt_list=os.path.join(data_root, 'raw', 'list_cvt', 'ARID_split1_test.txt'),
+	val   = VideoIter(video_prefix=os.path.join(data_root, 'raw', 'validate'),
+					  txt_list=os.path.join(data_root, 'raw', 'list_cvt', 'validate.txt'),
 					  sampler=val_sampler,
 					  force_color=True,
 					  video_transform=transforms.Compose([
@@ -112,7 +112,7 @@ def get_arid_flow(data_root='./dataset/ARID',
 	val_sampler = sampler.SequentialSampling(num=clip_length, interval=val_interval, fix_cursor=True, shuffle=True)
 	# val_sampler = sampler.SegmentalSampling(num_per_seg=clip_length, segments=segments, interval=val_interval, fix_cursor=True, shuffle=True)
 	val   = FlowIter(video_prefix=os.path.join(data_root, 'raw', 'flow'),
-					  txt_list=os.path.join(data_root, 'raw', 'list_cvt', 'ARID_split1_test.txt'),
+					  txt_list=os.path.join(data_root, 'raw', 'list_cvt', 'validate.txt'),
 					  sampler=val_sampler,
 					  force_gray=True,
 					  flow_transforms=flow_transforms.Compose([
