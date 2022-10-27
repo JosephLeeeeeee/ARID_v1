@@ -46,7 +46,7 @@ parser.add_argument('--network', type=str, default='RESNET',
 # - step 4: resume if `resume_epoch' >= 0
 parser.add_argument('--pretrained_2d', type=bool, default=True,
                     help="load default 2D pretrained model.")
-parser.add_argument('--pretrained_3d', type=str, 
+parser.add_argument('--pretrained_3d', type=str,
                     default=None,
                     help="load default 3D pretrained model.")
 parser.add_argument('--resume-epoch', type=int, default=-1,
@@ -54,12 +54,13 @@ parser.add_argument('--resume-epoch', type=int, default=-1,
 # optimization
 parser.add_argument('--fine-tune', type=bool, default=True,
                     help="apply different learning rate for different layers")
-parser.add_argument('--batch-size', type=int, default=2,
+parser.add_argument('--batch-size', type=int, default=2,  # Change batch size here to fit your PC
                     help="batch size")
+
 parser.add_argument('--lr-base', type=float, default=0.01,
                     help="learning rate")
-parser.add_argument('--lr-steps', type=list, default=[int(1e4*x) for x in [2, 4, 8]],
-            help="number of samples to pass before changing learning rate")
+parser.add_argument('--lr-steps', type=list, default=[int(1e4 * x) for x in [2, 4, 8]],
+                    help="number of samples to pass before changing learning rate")
 parser.add_argument('--lr-factor', type=float, default=0.1,
                     help="reduce the learning with factor")
 parser.add_argument('--save-frequency', type=float, default=1,
@@ -81,6 +82,7 @@ parser.add_argument('--use-flow', action='store_true')
 parser.add_argument('--use-segments', action='store_true')
 parser.add_argument('--segments', default=3, type=int)
 
+
 def autofill(args):
     # customized
     if not args.task_name:
@@ -94,19 +96,21 @@ def autofill(args):
     args.model_prefix = os.path.join(args.model_dir, args.task_name)
     return args
 
+
 def set_logger(log_file='', debug_mode=False):
     if log_file:
-        if not os.path.exists("./"+os.path.dirname(log_file)):
-            os.makedirs("./"+os.path.dirname(log_file))
+        if not os.path.exists("./" + os.path.dirname(log_file)):
+            os.makedirs("./" + os.path.dirname(log_file))
         handlers = [logging.FileHandler(log_file), logging.StreamHandler()]
     else:
         handlers = [logging.StreamHandler()]
 
     """ add '%(filename)s:%(lineno)d %(levelname)s:' to format show source file """
     logging.basicConfig(level=logging.DEBUG if debug_mode else logging.INFO,
-                format='%(asctime)s: %(message)s',
-                datefmt='%Y-%m-%d %H:%M:%S',
-                handlers = handlers)
+                        format='%(asctime)s: %(message)s',
+                        datefmt='%Y-%m-%d %H:%M:%S',
+                        handlers=handlers)
+
 
 if __name__ == "__main__":
 
@@ -123,7 +127,7 @@ if __name__ == "__main__":
                  json.dumps(vars(args), indent=4, sort_keys=True))
 
     # set device states
-    os.environ["CUDA_VISIBLE_DEVICES"] = args.gpus # before using torch
+    os.environ["CUDA_VISIBLE_DEVICES"] = args.gpus  # before using torch
     assert torch.cuda.is_available(), "CUDA is not available"
     torch.manual_seed(args.random_seed)
     torch.cuda.manual_seed(args.random_seed)
@@ -132,9 +136,10 @@ if __name__ == "__main__":
     args.distributed = args.world_size > 1
     if args.distributed:
         import re, socket
+
         rank = int(re.search('192.168.0.(.*)', socket.gethostname()).group(1))
         logging.info("Distributed Training (rank = {}), world_size = {}, backend = `{}'".format(
-                     rank, args.world_size, args.backend))
+            rank, args.world_size, args.backend))
         dist.init_process_group(backend=args.backend, init_method=args.dist_url, rank=rank,
                                 group_name=args.task_name, world_size=args.world_size)
 
@@ -143,9 +148,9 @@ if __name__ == "__main__":
 
     # creat model with all parameters initialized
     net, input_conf = get_symbol(name=args.network, is_dark=args.is_dark,
-                     pretrained=args.pretrained_2d if args.resume_epoch < 0 else None,
-                     print_net=True if args.distributed else False,
-                     **dataset_cfg)
+                                 pretrained=args.pretrained_2d if args.resume_epoch < 0 else None,
+                                 print_net=True if args.distributed else False,
+                                 **dataset_cfg)
 
     # training
     kwargs = {}
