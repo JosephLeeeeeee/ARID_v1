@@ -40,16 +40,16 @@ parser.add_argument('--log-file', type=str, default="./eval-hmdb51-0324.log",
 parser.add_argument('--gpus', type=str, default="0,1,2,3,4,5,6,7",
 					help="define gpu id")
 # algorithm
-parser.add_argument('--network', type=str, default='resnext',
+parser.add_argument('--network', type=str, default='resnet',
 					help="choose the base network")
 # evaluation
 parser.add_argument('--load-epoch', type=int, default=50,
 					help="resume trained model")
-parser.add_argument('--batch-size', type=int, default=8,
+parser.add_argument('--batch-size', type=int, default=8,  # Change batch size here
 					help="batch size")
 
 #other changes
-parser.add_argument('--list-file', type=str, default='ARID_split1_test.txt',
+parser.add_argument('--list-file', type=str, default='test.txt',
 					help='list of testing videos, see list_cvt folder of each dataset for details')
 parser.add_argument('--workers', type=int, default=4, help='num_workers during evaluation data loading')
 parser.add_argument('--test-rounds', type=int, default=30, help='number of testing rounds')
@@ -115,11 +115,13 @@ if __name__ == '__main__':
 	
 	# data iterator:
 	data_root = "../dataset/{}".format(args.dataset)
+
+	video_location = os.path.join(data_root,'test')
 	
-	if args.dataset.upper() == 'MINIKINETICS':
-		video_location = os.path.join(data_root, 'raw', 'data', 'val')
-	else:
-		video_location = os.path.join(data_root, 'raw', 'data')
+	# if args.dataset.upper() == 'MINIKINETICS':
+	# 	video_location = os.path.join(data_root, 'raw', 'data', 'val')
+	# else:
+	# 	video_location = os.path.join(data_root, 'raw', 'data')
 	
 	# normalize = transforms.Normalize(mean=input_config['mean'], std=input_config['std'])
 	val_sampler = sampler.RandomSampling(num=args.clip_length,
