@@ -14,8 +14,9 @@ def adjust_gamma_table(gamma=1.0):
 
 def gamma_intensity_correction(cur_path, init_dirname, gamma):
 
-	os.mkdir('gamma_correction')
-	new_path = os.path.join(cur_path, 'gamma_correction')
+	if not os.path.exists('gamma_correction'):
+		os.mkdir('gamma_correction')
+	# new_path = os.path.join(cur_path, 'gamma_correction')
 	LU_table = adjust_gamma_table(gamma)
 	for name in os.listdir(cur_path):
 		if name != init_dirname:
