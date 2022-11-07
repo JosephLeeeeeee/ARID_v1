@@ -36,7 +36,7 @@ class simplyLIME:
 
 
 if __name__ == "__main__":
-    img = io.imread('../data/11.png')
+    img = io.imread('./data/img_00001.jpg')
     lime = simplyLIME(img)
 
     plt.subplot(121), io.imshow(img)
