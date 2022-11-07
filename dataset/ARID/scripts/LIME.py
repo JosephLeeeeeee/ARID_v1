@@ -126,6 +126,6 @@ class LIME:
 
 
 if __name__ == "__main__":
-    lime = LIME("C:/Source/LIME/data/10.png")
+    lime = LIME("./data/4.bmp")
     lime.enhance()
-    io.imsave("C:/Source/LIME/data/R.png", lime.R)
+    io.imsave("./data/R.bmp", lime.R)
