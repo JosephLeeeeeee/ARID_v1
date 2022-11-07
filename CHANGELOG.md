@@ -1,5 +1,9 @@
 # Changelog
 
+## 2022.11.7
+
+Fixed frame extraction and simplyLIME, added RGBY plotting codes. Now the code can extract frame from a given .mp4 file, and use simplyLIME to enhance it. It can also be analysed by RGBY.
+
 ## 2022.10.23
 
 Fixed most problems and trained the model with batch size of 2, num_worker of 8. Epoch[0] took 0.19h, so decided to implement it on Colab.
