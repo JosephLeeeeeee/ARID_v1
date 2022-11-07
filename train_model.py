@@ -14,7 +14,7 @@ from train.lr_scheduler import MultiFactorScheduler
 
 def train_model(sym_net, model_prefix, dataset, input_conf,
                 clip_length=16, train_frame_interval=2, val_frame_interval=2,
-                resume_epoch=-1, batch_size=2, save_frequency=1,
+                resume_epoch=-1, batch_size=2, save_frequency=1,  # Change default batch size here
                 lr_base=0.01, lr_factor=0.1, lr_steps=[400000, 800000],
                 end_epoch=1000, distributed=False, 
                 pretrained_3d=None, fine_tune=False, use_flow=False,
