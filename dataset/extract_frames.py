@@ -6,7 +6,7 @@ import numpy as np
 import subprocess
 
 target_folder = 'ori_frames'
-root_folder = 'avi'
+root_folder = 'avi' # Need to new this folder
 i = 1
 total_files = sum([len(files) for r, d, files in os.walk(root_folder)])
 
@@ -18,15 +18,16 @@ for dir in os.listdir(root_folder):
 	target_class_folder = os.path.join(target_folder, dir)
 	if not os.path.exists(target_class_folder):
 		os.mkdir(target_class_folder)
-	files = glob.glob(os.path.join(class_folder, '*.avi'))
+
+	files = glob.glob(os.path.join(class_folder, '*.mp4')) # Use .avi if your data is in .avi form
 	for file in files:
 		print("Processing {}".format(file))
-		filename = file.split('/')[-1]
+		filename = file.split('\\')[-1] # Split filename, depends on your system
 		output_folder = os.path.join(target_class_folder, filename)
 		if not os.path.exists(output_folder):
 			os.mkdir(output_folder)
 
-		cap = cv2.VideoCapture(clip_path)
+		cap = cv2.VideoCapture(file)
 		idx = 0
 		while(cap.isOpened()):
 			ret, frame = cap.read()
